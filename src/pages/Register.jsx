@@ -60,8 +60,11 @@ const Register = () => {
             }}
             validationSchema={registerSchema}
             onSubmit={(values, actions) => {
+              //* submit islemi oldugunda yapmasini istedigimiz islemleri buraya yaziyoruz. 
+              //* Values ile degerleri yakaliyoruz, actions ile de yapilacak islemleri yaziyoruz.
               register(values);
-              actions.resetForm();
+              // console.log(values)
+              actions.resetForm();   //inputlari bosaltmak icin
             }}
             component={props => <RegisterForm {...props} />}>
             </Formik>

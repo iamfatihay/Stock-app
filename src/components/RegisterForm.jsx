@@ -41,7 +41,9 @@ const SignUpForm = ({ values, handleChange, errors, touched, handleBlur }) => {
             value={values.username}
             onChange={handleChange}
             onBlur={handleBlur}
+            //* Validation da verdigimiz semaya uymazsa ilgili mesaji gostermesi icin helperText
             helperText={touched.username && errors.username}
+            //* Semaya uymadigi takdirde rengi error rengine cevirmesi icin
             error={touched.username && Boolean(errors.username)}
           />
           <TextField
