@@ -6,25 +6,25 @@ import { object, string, ref } from "yup";
 
 export const registerSchema = object({
   username: string()
-    .max(10, "Kullanıcı adı 10 karakterden az olmalıdır.")
+    .max(10, "Username must be less than 10 characters")
     .required(),
-  first_name: string().max(20, "İsim 20 karakterden az olmalıdır.").required(),
+  first_name: string().max(20, "First name must be less than 20 characters").required(),
   last_name: string()
-    .max(20, "Soyisim 30 karakterden az olmalıdır.")
+    .max(20, "Last name must be less than 30 characters")
     .required(),
 
   email: string().email().required(),
   password: string()
-    .required("password zorunludur")
-    .min(8, "password en az 8 karakter olmalıdır")
-    .max(20, "password en fazla 20 karakter olmalıdır")
-    .matches(/\d+/, "Password bir sayı içermelidir")
-    .matches(/[a-z]/, "Password bir küçük harf içermelidir")
-    .matches(/[A-Z]/, "Password bir büyük harf içermelidir")
-    .matches(/[!,?{}><%&$#£+-.]+/, "Password bir özel karakter içermelidir"),
+    .required("Password is required")
+    .min(8, "Password must be at least 8 characters")
+    .max(20, "Password must be a maximum of 20 characters")
+    .matches(/\d+/, "Password must contain a number")
+    .matches(/[a-z]/, "Password must contain a lowercase letter")
+    .matches(/[A-Z]/, "Password must contain a capital letter")
+    .matches(/[!,?{}><%&$#£+-.]+/, "Password must contain a special character"),
   password2: string()
     .oneOf([ref("password"), null], "Passwords must match")
-    .required("Confirm password zorunludur!"),
+    .required("Confirm password is required!"),
 });
 
 const SignUpForm = ({ values, handleChange, errors, touched, handleBlur }) => {
