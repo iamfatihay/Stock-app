@@ -7,13 +7,13 @@ import { object, string, ref } from "yup";
 export const registerSchema = object({
   username: string()
     .max(10, "Username must be less than 10 characters")
-    .required(),
-  first_name: string().max(20, "First name must be less than 20 characters").required(),
+    .required("Username is required"),
+  first_name: string().max(20, "First name must be less than 20 characters").required("First name is required"),
   last_name: string()
     .max(20, "Last name must be less than 30 characters")
-    .required(),
+    .required("Last name is required"),
 
-  email: string().email().required(),
+  email: string().email().required("Email is required"),
   password: string()
     .required("Password is required")
     .min(8, "Password must be at least 8 characters")
