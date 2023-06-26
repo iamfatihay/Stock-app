@@ -6,7 +6,7 @@ import { object, string, ref } from "yup";
 
 export const registerSchema = object({
   username: string()
-    .max(10, "Username must be less than 10 characters")
+    .max(150, "Username must be less than 150 characters")
     .required("Username is required"),
   first_name: string().max(20, "First name must be less than 20 characters").required("First name is required"),
   last_name: string()
