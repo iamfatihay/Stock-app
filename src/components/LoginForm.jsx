@@ -29,7 +29,7 @@ const LoginForm = ({ values, handleChange, errors, touched, handleBlur }) => {
           error={touched.email && Boolean(errors.email)}
         />
         <TextField
-          label="password"
+          label="Password"
           name="password"
           id="password"
           type="password"
