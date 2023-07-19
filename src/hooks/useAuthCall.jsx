@@ -31,6 +31,7 @@ const useAuthCall = () => {
       console.log(data);
     } catch (error) {
       dispatch(fetchFail());
+      toastErrorNotify("Login can not be performed");
       console.log(error);
     }
   };
