@@ -7,9 +7,9 @@ import { object, string } from "yup";
 
 export const loginScheme = object({
   email: string()
-    .email("Lutfen valid bir email giriniz")
-    .required("Email zorunludur"),
-  password: string().required("password zorunludur"),
+    .email("Please enter a valid email")
+    .required("Email is required"),
+  password: string().required("Password is required"),
 });
 
 const LoginForm = ({ values, handleChange, errors, touched, handleBlur }) => {

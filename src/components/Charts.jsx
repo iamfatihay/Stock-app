@@ -1,7 +1,6 @@
 import {
   Card,
   Title,
-  Text,
   LineChart,
   TabList,
   Tab,
