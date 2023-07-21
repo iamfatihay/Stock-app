@@ -80,7 +80,7 @@ Welcome to the Stock Application! This powerful platform provides users with the
 ## Expected Outcomes
 <div >
 <img width="660px" src="./stockApp.gif"/>
-<img width="160px" src="./stockApp1.gif"/>
+<img width="177px" src="./stockApp1.gif"/>
 </div>
 
 ## Technologies and Libraries
