@@ -120,4 +120,4 @@ Welcome contributions to enhance the Stock Application! If you find any bugs or 
 
 ## License
 
-The Blog Application is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code as per the terms of the license.
+The Stock Application is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code as per the terms of the license.
