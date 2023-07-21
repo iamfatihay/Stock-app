@@ -56,11 +56,12 @@ import useAuthCall from "../hooks/useAuthCall";
 const drawerWidth = 240;
 
 function Dashboard(props) {
-  const { currentUser } = useSelector(state => state.auth);
+  const { currentUser } = useSelector((state) => state.auth);
   const { logout } = useAuthCall();
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const theme = useTheme()
+  // console.log("🚀 ~ file: Dashboard.jsx:63 ~ Dashboard ~ mobileOpen:", mobileOpen)
+  const theme = useTheme();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -83,7 +84,6 @@ function Dashboard(props) {
         ))}
       </List> */}
       <MenuListItems />
-     
     </div>
   );
 
@@ -98,33 +98,43 @@ function Dashboard(props) {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-        }}>
+        }}
+      >
         <Toolbar>
           <IconButton
             color="inherit"
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: "none" } }}>
+            sx={{ mr: 2, display: { sm: "none" } }}
+          >
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 5 }}>
-            StockApp
+            Stock App
           </Typography>
           {currentUser && (
-            <Button
-              
-              color="inherit"
-              onClick={() => logout()}>
-              Logout
-            </Button>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                gap:3
+              }}
+            >
+              <Typography>{currentUser}</Typography>
+              <Button color="inherit" onClick={() => logout()}>
+                Logout
+              </Button>
+            </Box>
           )}
         </Toolbar>
       </AppBar>
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders">
+        aria-label="mailbox folders"
+      >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
           container={container}
@@ -141,7 +151,8 @@ function Dashboard(props) {
               width: drawerWidth,
               backgroundColor: theme.palette.secondary.main,
             },
-          }}>
+          }}
+        >
           {drawer}
         </Drawer>
         <Drawer
@@ -154,7 +165,8 @@ function Dashboard(props) {
               backgroundColor: theme.palette.secondary.main,
             },
           }}
-          open>
+          open
+        >
           {drawer}
         </Drawer>
       </Box>
@@ -164,14 +176,13 @@ function Dashboard(props) {
           flexGrow: 1,
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
-        }}>
+        }}
+      >
         <Toolbar />
         <Outlet />
       </Box>
     </Box>
   );
 }
-
-
 
 export default Dashboard;
