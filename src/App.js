@@ -5,7 +5,7 @@ import { Provider } from "react-redux";
 import store, { persistor } from "./app/store";
 import { ToastContainer } from "react-toastify";
 import { PersistGate } from "redux-persist/integration/react";
-
+//* persistor u , user in bilgilerini kalici olarak kaydetmek icin kullaniyoruz, yani kullanici refresh yaptiginda stateler bosalmasin DirtyLens.
 function App() {
   const theme = createTheme({
     palette: {

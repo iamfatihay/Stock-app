@@ -180,6 +180,7 @@ function Dashboard(props) {
       >
         <Toolbar />
         <Outlet />
+        {/* privat router da oldugu gibi, sayfa iceriklerinin tiklandiginda buraya gelebimesi icin outlet kullanmamiz gerekiyor */}
       </Box>
     </Box>
   );
