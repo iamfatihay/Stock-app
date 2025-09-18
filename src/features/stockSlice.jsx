@@ -1,15 +1,85 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios"; // Not needed for mock data
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8000/';
+// Mock data for demo purposes (works without backend)
+const MOCK_DATA = {
+  products: [
+    {
+      id: "1",
+      name: "MacBook Pro 16\"",
+      category: "Electronics",
+      brand: "Apple",
+      stock: 25,
+      price: 2500,
+      image: "https://picsum.photos/150/150?random=1",
+      description: "High-performance laptop for professionals",
+      created_at: "2024-01-01T00:00:00.000Z"
+    },
+    {
+      id: "2", 
+      name: "iPhone 15 Pro",
+      category: "Electronics",
+      brand: "Apple",
+      stock: 50,
+      price: 1200,
+      image: "https://picsum.photos/150/150?random=2",
+      description: "Latest iPhone with advanced features",
+      created_at: "2024-01-02T00:00:00.000Z"
+    },
+    {
+      id: "3",
+      name: "Samsung Galaxy S24",
+      category: "Electronics", 
+      brand: "Samsung",
+      stock: 30,
+      price: 1100,
+      image: "https://picsum.photos/150/150?random=3",
+      description: "Premium Android smartphone",
+      created_at: "2024-01-03T00:00:00.000Z"
+    }
+  ],
+  brands: [
+    { id: "1", name: "Apple", image: "https://picsum.photos/100/100?random=10" },
+    { id: "2", name: "Samsung", image: "https://picsum.photos/100/100?random=11" },
+    { id: "3", name: "Sony", image: "https://picsum.photos/100/100?random=12" }
+  ],
+  firms: [
+    { id: "1", name: "TechCorp", phone: "+1-555-0123", address: "123 Tech St", image: "https://picsum.photos/100/100?random=20" },
+    { id: "2", name: "ElectroMax", phone: "+1-555-0456", address: "456 Electro Ave", image: "https://picsum.photos/100/100?random=21" }
+  ],
+  categories: [
+    { id: "1", name: "Electronics" },
+    { id: "2", name: "Clothing" },
+    { id: "3", name: "Books" }
+  ],
+  purchases: [
+    {
+      id: "1",
+      firm_id: "1",
+      product_id: "1", 
+      quantity: 10,
+      price: 2000,
+      created_at: "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  sales: [
+    {
+      id: "1",
+      product_id: "1",
+      quantity: 5,
+      price: 2500,
+      created_at: "2024-01-01T00:00:00.000Z"
+    }
+  ]
+};
 
 // Generic async thunk for fetching data
 export const fetchData = createAsyncThunk(
   "stock/fetchData",
-  async ({ endpoint, token }, { rejectWithValue }) => {
+  async ({ endpoint }, { rejectWithValue }) => {
     try {
-      const headers = token ? { Authorization: `Token ${token}` } : {};
-      const { data } = await axios.get(`${BASE_URL}${endpoint}`, { headers });
+      // Mock data'dan endpoint'e göre veri döndür
+      const data = MOCK_DATA[endpoint] || [];
       return { endpoint, data };
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
@@ -20,14 +90,11 @@ export const fetchData = createAsyncThunk(
 // Async thunk for fetching multiple related data
 export const fetchRelatedData = createAsyncThunk(
   "stock/fetchRelatedData",
-  async ({ endpoints, token }, { rejectWithValue }) => {
+  async ({ endpoints }, { rejectWithValue }) => {
     try {
-      const headers = token ? { Authorization: `Token ${token}` } : {};
-      const promises = endpoints.map(endpoint =>
-        axios.get(`${BASE_URL}${endpoint}`, { headers })
-      );
-      const responses = await Promise.all(promises);
-      return responses.map(response => response.data);
+      // Mock data'dan endpoint'lere göre veri döndür
+      const data = endpoints.map(endpoint => MOCK_DATA[endpoint] || []);
+      return data;
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
@@ -37,11 +104,21 @@ export const fetchRelatedData = createAsyncThunk(
 // Async thunk for creating new items
 export const createItem = createAsyncThunk(
   "stock/createItem",
-  async ({ endpoint, data, token }, { rejectWithValue }) => {
+  async ({ endpoint, data }, { rejectWithValue }) => {
     try {
-      const headers = token ? { Authorization: `Token ${token}` } : {};
-      const response = await axios.post(`${BASE_URL}${endpoint}`, data, { headers });
-      return { endpoint, data: response.data };
+      // Mock olarak yeni item oluştur
+      const newItem = {
+        ...data,
+        id: Date.now().toString(),
+        created_at: new Date().toISOString()
+      };
+      
+      // Mock data'ya ekle (gerçekte persist edilmez)
+      if (MOCK_DATA[endpoint]) {
+        MOCK_DATA[endpoint].push(newItem);
+      }
+      
+      return { endpoint, data: newItem };
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
@@ -51,11 +128,24 @@ export const createItem = createAsyncThunk(
 // Async thunk for updating items
 export const updateItem = createAsyncThunk(
   "stock/updateItem",
-  async ({ endpoint, id, data, token }, { rejectWithValue }) => {
+  async ({ endpoint, id, data }, { rejectWithValue }) => {
     try {
-      const headers = token ? { Authorization: `Token ${token}` } : {};
-      const response = await axios.put(`${BASE_URL}${endpoint}/${id}`, data, { headers });
-      return { endpoint, id, data: response.data };
+      // Mock olarak item güncelle
+      const updatedItem = {
+        ...data,
+        id: id,
+        updated_at: new Date().toISOString()
+      };
+      
+      // Mock data'da güncelle (gerçekte persist edilmez)
+      if (MOCK_DATA[endpoint]) {
+        const index = MOCK_DATA[endpoint].findIndex(item => item.id === id);
+        if (index !== -1) {
+          MOCK_DATA[endpoint][index] = updatedItem;
+        }
+      }
+      
+      return { endpoint, id, data: updatedItem };
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);
     }
@@ -65,10 +155,13 @@ export const updateItem = createAsyncThunk(
 // Async thunk for deleting items
 export const deleteItem = createAsyncThunk(
   "stock/deleteItem",
-  async ({ endpoint, id, token }, { rejectWithValue }) => {
+  async ({ endpoint, id }, { rejectWithValue }) => {
     try {
-      const headers = token ? { Authorization: `Token ${token}` } : {};
-      await axios.delete(`${BASE_URL}${endpoint}/${id}`, { headers });
+      // Mock olarak item sil
+      if (MOCK_DATA[endpoint]) {
+        MOCK_DATA[endpoint] = MOCK_DATA[endpoint].filter(item => item.id !== id);
+      }
+      
       return { endpoint, id };
     } catch (error) {
       return rejectWithValue(error.response?.data || error.message);

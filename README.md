@@ -1,5 +1,34 @@
 # Stock App
 ## Live Link: https://stock-app-fay.vercel.app/
+
+## 🚀 Quick Start & Demo Login
+
+### **Demo Credentials (Click to Auto-fill):**
+
+#### **Admin Account:**
+- **Email:** `admin@stockapp.com`
+- **Password:** `admin123`
+
+#### **Demo Account:**
+- **Email:** `demo@stockapp.com` 
+- **Password:** `demo123`
+
+### **How to Test:**
+1. **Login Page:** Click on any credential above to auto-fill the form
+2. **Register Page:** Create new accounts (fully functional)
+3. **Dashboard:** View KPI cards, charts, and navigation
+4. **All Features:** Products, Brands, Firms, Categories, Purchases, Sales
+
+### **Features:**
+- ✅ **Mock Backend:** Works without external dependencies
+- ✅ **Responsive Design:** Mobile-friendly interface
+- ✅ **Modern UI:** Material-UI components
+- ✅ **Real-time Data:** Mock data with realistic content
+- ✅ **Authentication:** Login/Register with validation
+- ✅ **CRUD Operations:** Create, Read, Update, Delete
+- ✅ **Charts & Analytics:** KPI cards with Tremor
+- ✅ **Image Support:** Product images with placeholders
+
 ## Description
 
 Welcome to the Stock Application! This powerful platform provides users with the ability to manage their stocks efficiently. Whether you are a business owner, store manager, or simply want to keep track of your personal inventory, Stock App has got you covered.

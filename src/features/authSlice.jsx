@@ -1,16 +1,37 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+// import axios from "axios"; // Not needed for mock data
 
-const BASE_URL = process.env.REACT_APP_BASE_URL || 'http://localhost:8000/';
+// Mock users for demo purposes (works without backend)
+const MOCK_USERS = [
+  {
+    id: 1,
+    email: "admin@stockapp.com",
+    password: "admin123",
+    username: "admin",
+    first_name: "Admin",
+    last_name: "User",
+    is_superuser: true,
+    created_at: "2024-01-01T00:00:00Z"
+  },
+  {
+    id: 2,
+    email: "demo@stockapp.com", 
+    password: "demo123",
+    username: "demo",
+    first_name: "Demo",
+    last_name: "User",
+    is_superuser: false,
+    created_at: "2024-01-01T00:00:00Z"
+  }
+];
 
 // Async thunks for better error handling
 export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (userInfo, { rejectWithValue }) => {
     try {
-      // JSON Server'dan users verisi al
-      const { data } = await axios.get(`${BASE_URL}users`);
-      const user = data.find(u => u.email === userInfo.email && u.password === userInfo.password);
+      // Mock users'dan kontrol et
+      const user = MOCK_USERS.find(u => u.email === userInfo.email && u.password === userInfo.password);
       
       if (user) {
         // Password'u response'dan çıkar
@@ -33,28 +54,24 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (userInfo, { rejectWithValue }) => {
     try {
-      // Önce email'in zaten var olup olmadığını kontrol et
-      const { data: existingUsers } = await axios.get(`${BASE_URL}users`);
-      const existingUser = existingUsers.find(u => u.email === userInfo.email);
+      // Mock users'dan email kontrolü
+      const existingUser = MOCK_USERS.find(u => u.email === userInfo.email);
       
       if (existingUser) {
-        // eslint-disable-next-line no-unreachable
         return rejectWithValue('Email already exists');
       }
       
-      // Yeni kullanıcı oluştur
+      // Yeni kullanıcı oluştur (mock olarak)
       const newUser = {
         ...userInfo,
-        id: Date.now(), // Basit ID generation
+        id: Date.now(),
         is_superuser: false,
         created_at: new Date().toISOString()
       };
       
-      const { data } = await axios.post(`${BASE_URL}users`, newUser);
-      
       // Password'u response'dan çıkar
       // eslint-disable-next-line no-unused-vars
-      const { password, ...userWithoutPassword } = data;
+      const { password, ...userWithoutPassword } = newUser;
       
       return { 
         username: userWithoutPassword.username, 
