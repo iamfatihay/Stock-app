@@ -18,14 +18,14 @@ const Products = () => {
     setOpen(false);
     setInfo({
       name: "",
-      cataegory_id: "",
+      category_id: "",
       brand_id: "",
     });
     //* handleClose olduğunda yani modal kapnadığında formdaki verilerin temizlenmesi için burada tanımladık.
   };
   const [info, setInfo] = useState({
     name: "",
-    cataegory_id: "",
+    category_id: "",
     brand_id: "",
   });
 
@@ -38,6 +38,26 @@ const Products = () => {
       headerAlign: "center",
       align: "center",
       flex: 1,
+    },
+    {
+      field: "image",
+      headerName: "Image",
+      minWidth: 100,
+      headerAlign: "center",
+      align: "center",
+      flex: 1,
+      renderCell: (params) => (
+        <img
+          src={params.value || "https://picsum.photos/50/50?random=999"}
+          alt={params.row.name}
+          style={{
+            width: 50,
+            height: 50,
+            objectFit: "cover",
+            borderRadius: "4px",
+          }}
+        />
+      ),
     },
     {
       field: "category",
@@ -108,7 +128,7 @@ const Products = () => {
     // getStockData("products");
     // getStockData("categories");
     // getStockData("brands");
-    //! Promise.all()
+    //! Promise.all() bu sayede 3 istegi ayni anda atip response suresini kisaltmis olduk.
     getProCatBrand();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

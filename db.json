@@ -1,0 +1,393 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "email": "admin@stockapp.com",
+      "first_name": "Admin",
+      "last_name": "User",
+      "password": "admin123",
+      "is_superuser": true,
+      "created_at": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "username": "demo",
+      "email": "demo@stockapp.com",
+      "first_name": "Demo",
+      "last_name": "User",
+      "password": "demo123",
+      "is_superuser": false,
+      "created_at": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "69cd",
+      "username": "testuser",
+      "first_name": "Test",
+      "last_name": "User",
+      "email": "test@test.com",
+      "password": "test123"
+    },
+    {
+      "id": "a427",
+      "username": "testuser",
+      "first_name": "Test",
+      "last_name": "User",
+      "email": "test@example.com",
+      "password": "Test123!"
+    }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "MacBook Pro 16\"",
+      "category": "Electronics",
+      "brand": "Apple",
+      "stock": 25,
+      "price": 2500,
+      "image": "https://picsum.photos/150/150?random=1",
+      "description": "High-performance laptop for professionals",
+      "created_at": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Dell XPS 13",
+      "category": "Electronics",
+      "brand": "Dell",
+      "stock": 40,
+      "price": 1200,
+      "image": "https://picsum.photos/150/150?random=2",
+      "description": "Ultrabook with excellent battery life",
+      "created_at": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Logitech MX Master 3",
+      "category": "Accessories",
+      "brand": "Logitech",
+      "stock": 100,
+      "price": 99,
+      "image": "https://picsum.photos/150/150?random=3",
+      "description": "Premium wireless mouse",
+      "created_at": "2024-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "iPhone 15 Pro",
+      "category": "Electronics",
+      "brand": "Apple",
+      "stock": 50,
+      "price": 999,
+      "image": "https://picsum.photos/150/150?random=9",
+      "description": "Latest iPhone with Pro features",
+      "created_at": "2024-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Samsung Galaxy S24",
+      "category": "Electronics",
+      "brand": "Samsung",
+      "stock": 75,
+      "price": 899,
+      "image": "https://picsum.photos/150/150?random=10",
+      "description": "Flagship Android smartphone",
+      "created_at": "2024-01-05T00:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "name": "Sony WH-1000XM5",
+      "category": "Accessories",
+      "brand": "Sony",
+      "stock": 30,
+      "price": 399,
+      "image": "https://picsum.photos/150/150?random=11",
+      "description": "Premium noise-canceling headphones",
+      "created_at": "2024-01-06T00:00:00.000Z"
+    },
+    {
+      "id": "7",
+      "name": "iPad Air",
+      "category": "Electronics",
+      "brand": "Apple",
+      "stock": 40,
+      "price": 599,
+      "image": "https://picsum.photos/150/150?random=12",
+      "description": "Powerful tablet for work and play",
+      "created_at": "2024-01-07T00:00:00.000Z"
+    },
+    {
+      "id": "8",
+      "name": "Microsoft Surface Pro",
+      "category": "Electronics",
+      "brand": "Microsoft",
+      "stock": 25,
+      "price": 1299,
+      "image": "https://picsum.photos/150/150?random=13",
+      "description": "2-in-1 laptop and tablet",
+      "created_at": "2024-01-08T00:00:00.000Z"
+    }
+  ],
+  "brands": [
+    {
+      "id": "1",
+      "name": "Apple",
+      "image": "https://picsum.photos/150/150?random=4",
+      "description": "Technology company",
+      "created_at": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Dell",
+      "image": "https://picsum.photos/150/150?random=5",
+      "description": "Computer technology company",
+      "created_at": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Logitech",
+      "image": "https://picsum.photos/150/150?random=6",
+      "description": "Computer peripherals manufacturer",
+      "created_at": "2024-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "f335",
+      "name": "mercedes",
+      "image": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fde.wikipedia.org%2Fwiki%2FMercedes-Benz&psig=AOvVaw11kZAFa6-fN3ha8Fytu7dp&ust=1758214196013000&source=images&cd=vfe&opi=89978449&ved=0CBUQjRxqFwoTCOi9-bag4I8DFQAAAAAdAAAAABAE"
+    },
+    {
+      "id": "4",
+      "name": "Samsung",
+      "image": "https://picsum.photos/150/150?random=14",
+      "description": "Electronics and technology company",
+      "created_at": "2024-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Sony",
+      "image": "https://picsum.photos/150/150?random=15",
+      "description": "Consumer electronics and entertainment",
+      "created_at": "2024-01-05T00:00:00.000Z"
+    },
+    {
+      "id": "6",
+      "name": "Microsoft",
+      "image": "https://picsum.photos/150/150?random=16",
+      "description": "Software and hardware technology",
+      "created_at": "2024-01-06T00:00:00.000Z"
+    }
+  ],
+  "firms": [
+    {
+      "id": "1",
+      "name": "Tech Solutions Inc",
+      "address": "123 Tech Street, Silicon Valley, CA 94000",
+      "phone": "+1-555-0123",
+      "image": "https://picsum.photos/150/150?random=7",
+      "email": "contact@techsolutions.com",
+      "created_at": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Digital Innovations Ltd",
+      "address": "456 Innovation Ave, Austin, TX 78701",
+      "phone": "+1-555-0456",
+      "image": "https://picsum.photos/150/150?random=8",
+      "email": "info@digitalinnovations.com",
+      "created_at": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Global Electronics Corp",
+      "address": "789 Tech Boulevard, Seattle, WA 98101",
+      "phone": "+1-555-0789",
+      "image": "https://picsum.photos/150/150?random=17",
+      "email": "contact@globalelectronics.com",
+      "created_at": "2024-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Innovation Partners LLC",
+      "address": "321 Business Park, Miami, FL 33101",
+      "phone": "+1-555-0321",
+      "image": "https://picsum.photos/150/150?random=18",
+      "email": "partners@innovation.com",
+      "created_at": "2024-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Tech Distribution Co",
+      "address": "555 Commerce Street, Chicago, IL 60601",
+      "phone": "+1-555-0555",
+      "image": "https://picsum.photos/150/150?random=19",
+      "email": "sales@techdist.com",
+      "created_at": "2024-01-05T00:00:00.000Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1",
+      "name": "Electronics",
+      "description": "Electronic devices and components",
+      "created_at": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Accessories",
+      "description": "Computer and device accessories",
+      "created_at": "2024-01-02T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Software",
+      "description": "Software products and licenses",
+      "created_at": "2024-01-03T00:00:00.000Z"
+    },
+    {
+      "id": "4",
+      "name": "Gaming",
+      "description": "Gaming equipment and accessories",
+      "created_at": "2024-01-04T00:00:00.000Z"
+    },
+    {
+      "id": "5",
+      "name": "Office",
+      "description": "Office equipment and supplies",
+      "created_at": "2024-01-05T00:00:00.000Z"
+    }
+  ],
+  "purchases": [
+    {
+      "id": "1",
+      "firm_id": 1,
+      "brand_id": 1,
+      "product_id": 1,
+      "quantity": 10,
+      "price": 2500,
+      "price_total": 25000,
+      "created_at": "2024-01-15T10:30:00.000Z",
+      "firm": "Tech Solutions Inc",
+      "brand": "Apple",
+      "product": "MacBook Pro 16\""
+    },
+    {
+      "id": "2",
+      "firm_id": 2,
+      "brand_id": 2,
+      "product_id": 2,
+      "quantity": 20,
+      "price": 1200,
+      "price_total": 24000,
+      "created_at": "2024-01-16T14:20:00.000Z",
+      "firm": "Digital Innovations Ltd",
+      "brand": "Dell",
+      "product": "Dell XPS 13"
+    },
+    {
+      "id": "3",
+      "firm_id": 3,
+      "brand_id": 3,
+      "product_id": 3,
+      "quantity": 50,
+      "price": 99,
+      "price_total": 4950,
+      "created_at": "2024-01-17T09:15:00.000Z",
+      "firm": "Global Electronics Corp",
+      "brand": "Logitech",
+      "product": "Logitech MX Master 3"
+    },
+    {
+      "id": "4",
+      "firm_id": 4,
+      "brand_id": 4,
+      "product_id": 4,
+      "quantity": 25,
+      "price": 999,
+      "price_total": 24975,
+      "created_at": "2024-01-18T11:45:00.000Z",
+      "firm": "Innovation Partners LLC",
+      "brand": "Samsung",
+      "product": "Samsung Galaxy S24"
+    },
+    {
+      "id": "5",
+      "firm_id": 5,
+      "brand_id": 5,
+      "product_id": 5,
+      "quantity": 15,
+      "price": 399,
+      "price_total": 5985,
+      "created_at": "2024-01-19T16:30:00.000Z",
+      "firm": "Tech Distribution Co",
+      "brand": "Sony",
+      "product": "Sony WH-1000XM5"
+    }
+  ],
+  "sales": [
+    {
+      "id": "1",
+      "brand_id": 1,
+      "product_id": 1,
+      "quantity": 2,
+      "price": 2800,
+      "price_total": 5600,
+      "created_at": "2024-01-20T09:15:00.000Z",
+      "brand": "Apple",
+      "product": "MacBook Pro 16\""
+    },
+    {
+      "id": "2",
+      "brand_id": 3,
+      "product_id": 3,
+      "quantity": 5,
+      "price": 99,
+      "price_total": 495,
+      "created_at": "2024-01-21T16:45:00.000Z",
+      "brand": "Logitech",
+      "product": "Logitech MX Master 3"
+    },
+    {
+      "id": "3",
+      "brand_id": 2,
+      "product_id": 2,
+      "quantity": 3,
+      "price": 1350,
+      "price_total": 4050,
+      "created_at": "2024-01-22T10:20:00.000Z",
+      "brand": "Dell",
+      "product": "Dell XPS 13"
+    },
+    {
+      "id": "4",
+      "brand_id": 4,
+      "product_id": 4,
+      "quantity": 1,
+      "price": 1099,
+      "price_total": 1099,
+      "created_at": "2024-01-23T15:45:00.000Z",
+      "brand": "Samsung",
+      "product": "Samsung Galaxy S24"
+    },
+    {
+      "id": "5",
+      "brand_id": 5,
+      "product_id": 5,
+      "quantity": 2,
+      "price": 449,
+      "price_total": 898,
+      "created_at": "2024-01-24T12:10:00.000Z",
+      "brand": "Sony",
+      "product": "Sony WH-1000XM5"
+    },
+    {
+      "id": "6",
+      "brand_id": 1,
+      "product_id": 6,
+      "quantity": 1,
+      "price": 699,
+      "price_total": 699,
+      "created_at": "2024-01-25T16:30:00.000Z",
+      "brand": "Apple",
+      "product": "iPad Air"
+    }
+  ]
+}

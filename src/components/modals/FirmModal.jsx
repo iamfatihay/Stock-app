@@ -3,6 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { TextField } from "@mui/material";
+import PropTypes from "prop-types";
 // import { useState } from "react";
 import useStockCall from "../../hooks/useStockCall";
 import { flexColumn, modalStyle } from "../../styles/globalStyle";
@@ -56,7 +57,7 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
     // });
     handleClose(); //? submit işleminden sonra modalın kapanması için burada handleClose fonksiyonunu çağırıyoruz.
   };
-  console.log(info);
+
   return (
     <div>
       <Modal
@@ -123,3 +124,10 @@ export default function FirmModal({ open, handleClose, info, setInfo }) {
     </div>
   );
 }
+
+FirmModal.propTypes = {
+  open: PropTypes.bool.isRequired,
+  handleClose: PropTypes.func.isRequired,
+  info: PropTypes.object.isRequired,
+  setInfo: PropTypes.func.isRequired,
+};

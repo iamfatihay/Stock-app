@@ -110,10 +110,51 @@ To run the application on your local machine, follow these steps:
 3. Install the dependencies:
     ```
     npm install
-4. Start the application:
+4. Start both frontend and backend:
     ```
-    npm start
+    npm run dev
+   ```
+   Or start them separately:
+   ```
+   npm run backend  # Starts JSON Server on port 8000
+   npm start        # Starts React app on port 3000
 5. Open your web browser and visit  **http://localhost:3000**  to explore the Stock Application.
+
+## 🚀 Quick Start & Demo Login
+
+### **Demo Credentials (Ready to Use!)**
+
+**Admin Account:**
+- **Email:** `admin@stockapp.com`
+- **Password:** `admin123`
+
+**Demo Account:**
+- **Email:** `demo@stockapp.com`  
+- **Password:** `demo123`
+
+**Or create a new account using the Register page.**
+
+### **How to Test the App:**
+
+1. **Clone and Install:**
+   ```bash
+   git clone https://github.com/iamfatihay/Stock-app.git
+   cd Stock-app
+   npm install
+   ```
+
+2. **Start the Application:**
+   ```bash
+   npm run dev
+   ```
+   This starts both frontend (port 3000) and backend (port 8000)
+
+3. **Login and Explore:**
+   - Visit: http://localhost:3000
+   - Use the demo credentials above
+   - Explore all features: Dashboard, Products, Brands, Firms, Purchases, Sales
+
+## Demo Credentials
 
 ## Contribution
 Welcome contributions to enhance the Stock Application! If you find any bugs or have ideas for improvements, please open an issue or submit a pull request. I appreciate your valuable input!

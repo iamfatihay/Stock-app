@@ -1,78 +1,71 @@
-import axios from "axios";
-import {
-  fetchFail,
-  fetchStart,
-  loginSuccess,
-  logoutSuccess,
-  registerSuccess,
-} from "../features/authSlice";
-
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
+import { loginUser, registerUser, logoutUser, clearError } from "../features/authSlice";
+import { useEffect } from "react";
 
 const useAuthCall = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { token } = useSelector(state => state.auth);
+  const { token, loading, error, isAuthenticated } = useSelector(state => state.auth);
 
-  const BASE_URL = process.env.REACT_APP_BASE_URL;
+  // Clear error when component unmounts
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch]);
 
-  const login = async userInfo => {
-    dispatch(fetchStart());
+  // Show error notifications
+  useEffect(() => {
+    if (error) {
+      toastErrorNotify(error.message || "An error occurred");
+      dispatch(clearError());
+    }
+  }, [error, dispatch]);
+
+  const login = async (userInfo) => {
     try {
-      const { data } = await axios.post(
-        `${BASE_URL}account/auth/login/`,
-        userInfo
-      );
-      dispatch(loginSuccess(data));
-      toastSuccessNotify("Login performed");
+      const result = await dispatch(loginUser(userInfo)).unwrap();
+      toastSuccessNotify("Login successful");
       navigate("/stock");
-      console.log(data);
+      return result;
     } catch (error) {
-      dispatch(fetchFail());
-      toastErrorNotify("Login can not be performed");
-      console.log(error);
+      // Error is handled by useEffect above
+    }
+  };
+
+  const register = async (userInfo) => {
+    try {
+      const result = await dispatch(registerUser(userInfo)).unwrap();
+      toastSuccessNotify("Registration successful");
+      navigate("/stock");
+      return result;
+    } catch (error) {
+      // Error is handled by useEffect above
     }
   };
 
   const logout = async () => {
-    dispatch(fetchStart());
     try {
-      // let headers = {
-      //   Authorization: `Token ${token}`,
-      // };
-      await axios.post(`${BASE_URL}account/auth/logout/`, null, {
-        headers: {
-          Authorization: `Token ${token}`,
-        },
-      });
-      dispatch(logoutSuccess());
-      toastSuccessNotify("Logout performed");
+      await dispatch(logoutUser(token)).unwrap();
+      toastSuccessNotify("Logout successful");
       navigate("/");
-    } catch (err) {
-      dispatch(fetchFail());
-      toastErrorNotify("Logout can not be performed");
+    } catch (error) {
+      // Even if server logout fails, we still logout locally
+      toastSuccessNotify("Logout successful");
+      navigate("/");
     }
   };
 
-  const register = async userInfo => {
-    dispatch(fetchStart());
-    try {
-      const { data } = await axios.post(
-        `${BASE_URL}account/register/`,
-        userInfo
-      );
-      dispatch(registerSuccess(data));
-      toastSuccessNotify("Register performed");
-      navigate("/stock");
-    } catch (err) {
-      dispatch(fetchFail());
-      toastErrorNotify("Register can not be performed");
-    }
+  return { 
+    login, 
+    register, 
+    logout, 
+    loading, 
+    error, 
+    isAuthenticated 
   };
-
-  return { login, register, logout };
 };
 
 export default useAuthCall;

@@ -1,5 +1,5 @@
 import { Card, Metric, Text, Icon, Flex, Grid } from "@tremor/react";
-import { CashIcon, TicketIcon,  CurrencyDollarIcon } from "@heroicons/react/solid";
+import { BanknotesIcon, TicketIcon, CurrencyDollarIcon } from "@heroicons/react/24/solid";
 import {useSelector} from 'react-redux';
 
 
@@ -21,7 +21,7 @@ export default function KpiCards() {
     {
       title: "Profit",
       metric: `€ ${totalProfit}`,
-      icon: CashIcon,
+      icon: BanknotesIcon,
       color: "fuchsia",
     },
     {

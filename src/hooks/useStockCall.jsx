@@ -1,201 +1,120 @@
-// import React from "react";
-import { useDispatch } from "react-redux";
-import {
-  fetchFail,
-  fetchStart,
-  getProCatBrandSucces,
-  getProPurcFirBrandsSucces,
-  getProSalBrandsSucces,
-  getPurcSalesSucces,
-  getSucces,
-} from "../features/stockSlice";
-// import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 import { toastErrorNotify, toastSuccessNotify } from "../helper/ToastNotify";
-import useAxios from "./useAxios";
+import { 
+  fetchData, 
+  fetchRelatedData, 
+  createItem, 
+  updateItem, 
+  deleteItem, 
+  clearError 
+} from "../features/stockSlice";
+import { useEffect } from "react";
 
 const useStockCall = () => {
   const dispatch = useDispatch();
-  // const { token } = useSelector(state => state.auth);
-  const { axiosWithToken } = useAxios();
+  const { token, loading, error } = useSelector(state => state.auth);
+  const { loading: stockLoading, error: stockError } = useSelector(state => state.stock);
 
-  //   const getFirms = async () => {
-  //     const BASE_URL = process.env.REACT_APP_BASE_URL;
+  // Clear error when component unmounts
+  useEffect(() => {
+    return () => {
+      dispatch(clearError());
+    };
+  }, [dispatch]);
 
-  //     dispatch(fetchStart());
-  //     try {
-  //       const { data } = await axios.get(`${BASE_URL}stock/firms/`, {
-  //         headers: { Authorization: `Token ${token}` },
-  //       });
-  //       console.log(data);
-  //       const url = "firms";
-  //       dispatch(getSucces({ data, url }));
-  //       // dispatch(getSucces({ data, url:"firms"}))
-  //     } catch (error) {
-  //       dispatch(fetchFail());
-  //     }
-  //   };
-  //   const getBrands = async () => {
-  //     const BASE_URL = process.env.REACT_APP_BASE_URL;
+  // Show error notifications
+  useEffect(() => {
+    if (stockError) {
+      toastErrorNotify(stockError.message || "An error occurred");
+      dispatch(clearError());
+    }
+  }, [stockError, dispatch]);
 
-  //     dispatch(fetchStart());
-  //     try {
-  //       const { data } = await axios.get(`${BASE_URL}stock/brands/`, {
-  //         headers: { Authorization: `Token ${token}` },
-  //       });
-  //       console.log(data);
-  //       const url = "brands";
-  //       dispatch(getSucces({ data, url }));
-  //       // dispatch(getSucces({ data, url:"brands"}))
-  //     } catch (error) {
-  //       dispatch(fetchFail());
-  //     }
-  //   };
-  //! yukarıdaki gib her seferinde yazmak yerine daha modüler bir yapı kurarak tek bir fonksiyonla bir den fazla get işlemini gerçekleştirebiliyoruz
-  // const BASE_URL = process.env.REACT_APP_BASE_URL;
-  // const getStockData = async (url) => {
-  //   dispatch(fetchStart());
-  //   try {
-  //     const { data } = await axios.get(`${BASE_URL}stock/${url}/`, {
-  //       headers: { Authorization: `Token ${token}` },
-  //     });
-  //     console.log(data);
-  //     dispatch(getSucces({ data, url }));
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //   }
-  // };
-
-  // const deleteStockData = async (url,id) => {
-  //   dispatch(fetchStart());
-  //   try {
-  //      await axios.delete(`${BASE_URL}stock/${url}/${id}/`, {
-  //       headers: { Authorization: `Token ${token}` },
-  //     });
-  //     getStockData(url);
-  //     toastSuccessNotify(`${url} successfuly deleted!`)
-  //   } catch (error) {
-  //     dispatch(fetchFail());
-  //     toastErrorNotify(`${url} not successfuly deleted!`);
-
-  //   }
-  // };
-  //! istek atarken ortak olan base_url  ve token gibi değerleri her seferinde yazmak yerine axios instance kullanarak bunları orada tanımlıyoruz. Ve sonrasında sadece istek atmak istediğimiz end pointi yazmamız yeterli oluyor.
-  const getStockData = async url => {
-    dispatch(fetchStart());
+  const getStockData = async (endpoint) => {
     try {
-      const { data } = await axiosWithToken.get(`stock/${url}/`);
-      console.log(data);
-      dispatch(getSucces({ data, url }));
+      await dispatch(fetchData({ endpoint, token })).unwrap();
     } catch (error) {
-      dispatch(fetchFail());
+      // Error is handled by useEffect above
     }
   };
 
-  const deleteStockData = async (url, id) => {
-    dispatch(fetchStart());
+  const deleteStockData = async (endpoint, id) => {
     try {
-      await axiosWithToken.delete(`stock/${url}/${id}/`);
-      getStockData(url);
-      toastSuccessNotify(`${url} successfuly deleted!`);
+      await dispatch(deleteItem({ endpoint, id, token })).unwrap();
+      toastSuccessNotify(`${endpoint} successfully deleted!`);
+      // Refresh the data after deletion
+      getStockData(endpoint);
     } catch (error) {
-      dispatch(fetchFail());
-      toastErrorNotify(`${url} not successfuly deleted!`);
+      // Error is handled by useEffect above
     }
   };
 
-  const postStockData = async (url, info) => {
-    dispatch(fetchStart());
+  const postStockData = async (endpoint, data) => {
     try {
-      await axiosWithToken.post(`stock/${url}/`, info);
-      getStockData(url);
-      toastSuccessNotify(`${url} successfuly created!`);
+      await dispatch(createItem({ endpoint, data, token })).unwrap();
+      toastSuccessNotify(`${endpoint} successfully created!`);
     } catch (error) {
-      dispatch(fetchFail());
-      toastErrorNotify(`${url} not successfuly created!`);
-    }
-  };
-  const putStockData = async (url, info) => {
-    dispatch(fetchStart());
-    try {
-      await axiosWithToken.put(`stock/${url}/${info.id}/`, info);
-      getStockData(url);
-      toastSuccessNotify(`${url} successfuly updated!`);
-    } catch (error) {
-      dispatch(fetchFail());
-      toastErrorNotify(`${url} not successfuly updated!`);
+      // Error is handled by useEffect above
     }
   };
 
+  const putStockData = async (endpoint, data) => {
+    try {
+      await dispatch(updateItem({ endpoint, id: data.id, data, token })).unwrap();
+      toastSuccessNotify(`${endpoint} successfully updated!`);
+    } catch (error) {
+      // Error is handled by useEffect above
+    }
+  };
+
+  // Specialized functions for complex data fetching
   const getProCatBrand = async () => {
-    dispatch(fetchStart());
     try {
-      // const { data } = await axiosWithToken.get(`stock/${url}/`);
-      const [products, brands, categories] = await Promise.all([
-        axiosWithToken.get(`stock/products/`),
-        axiosWithToken.get(`stock/brands/`),
-        axiosWithToken.get(`stock/categories/`),
-      ]);
-
-      dispatch(
-        getProCatBrandSucces([products?.data, brands?.data, categories?.data])
-      );
+      await dispatch(fetchRelatedData({ 
+        endpoints: ["products", "brands", "categories"], 
+        token 
+      })).unwrap();
     } catch (error) {
-      dispatch(fetchFail());
+      // Error is handled by useEffect above
     }
   };
+
   const getProSalBrands = async () => {
-    dispatch(fetchStart());
     try {
-      // const { data } = await axiosWithToken.get(`stock/${url}/`);
-      const [products, brands, sales] = await Promise.all([
-        axiosWithToken.get(`stock/products/`),
-        axiosWithToken.get(`stock/brands/`),
-        axiosWithToken.get(`stock/sales/`),
-      ]);
-
-      dispatch(
-        getProSalBrandsSucces([products?.data, brands?.data, sales?.data])
-      );
+      const promises = [
+        dispatch(fetchData({ endpoint: "products", token })),
+        dispatch(fetchData({ endpoint: "brands", token })),
+        dispatch(fetchData({ endpoint: "sales", token }))
+      ];
+      await Promise.all(promises);
     } catch (error) {
-      dispatch(fetchFail());
+      // Error is handled by useEffect above
     }
   };
+
   const getProPurcFirBrands = async () => {
-    dispatch(fetchStart());
     try {
-      // const { data } = await axiosWithToken.get(`stock/${url}/`);
-      const [products, purchases,firms,brands] = await Promise.all([
-        axiosWithToken.get(`stock/products/`),
-        axiosWithToken.get(`stock/purchases/`),
-        axiosWithToken.get(`stock/firms/`),
-        axiosWithToken.get(`stock/brands/`),
-      ]);
-
-      dispatch(
-        getProPurcFirBrandsSucces([
-          products?.data,
-          purchases?.data,
-          firms?.data,
-          brands?.data,
-        ])
-      );
+      const promises = [
+        dispatch(fetchData({ endpoint: "products", token })),
+        dispatch(fetchData({ endpoint: "purchases", token })),
+        dispatch(fetchData({ endpoint: "firms", token })),
+        dispatch(fetchData({ endpoint: "brands", token }))
+      ];
+      await Promise.all(promises);
     } catch (error) {
-      dispatch(fetchFail());
+      // Error is handled by useEffect above
     }
   };
-
 
   const getPurcSales = async () => {
-    dispatch(fetchStart());
     try {
-      const [purchases, sales] = await Promise.all([
-        axiosWithToken.get(`stock/purchases/`),
-        axiosWithToken.get(`stock/sales/`),
-      ]);
-
-      dispatch(getPurcSalesSucces([purchases?.data, sales?.data]));
+      const promises = [
+        dispatch(fetchData({ endpoint: "purchases", token })),
+        dispatch(fetchData({ endpoint: "sales", token }))
+      ];
+      await Promise.all(promises);
     } catch (error) {
-      dispatch(fetchFail());
+      // Error is handled by useEffect above
     }
   };
 
@@ -207,9 +126,10 @@ const useStockCall = () => {
     getProCatBrand,
     getProSalBrands,
     getProPurcFirBrands,
-    getPurcSales
+    getPurcSales,
+    loading: loading || stockLoading,
+    error: error || stockError
   };
-  
 };
 
 export default useStockCall;

@@ -140,14 +140,21 @@ const Sales = () => {
           autoHeight
           rows={sales}
           columns={columns}
-          pageSize={5}
-          pageSizeOptions={[5, 10, 25, 50]}
+          initialState={{
+            pagination: {
+              paginationModel: {
+                pageSize: 5,
+              },
+            },
+          }}
+          pageSizeOptions={[5, 10, 25, 50, 100]}
           slots={{
             toolbar: GridToolbar,
           }}
           sx={{
             boxShadow: 4,
           }}
+          disableRowSelectionOnClick
         />
       </Box>
     </div>
